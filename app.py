@@ -78,7 +78,7 @@ def wlwmanifest():
 def catch_all(path):
     log_and_send(request)
 
-    randomdata = urandom(randint(10, 110))
+    randomdata = urandom(randint(120, 1024))
     randomdata = randomdata.decode('utf-8', errors='ignore')
 
     return randomdata, randint(100, 999)
