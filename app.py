@@ -64,25 +64,22 @@ def log_and_send(req):
     send_telegram_message(msg)
 
 
-@app.route("/sito/wp-includes/wlwmanifest.xml", methods=['GET'])
-def wlwmanifest():
 
-    log_and_send(request)
-    return returns.ret_wlwmanifest_xml , randint(100, 999)
-
-
-
-
-@app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'])
-@app.route('/', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'])
+@app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD', 'PROST'])
+@app.route('/', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD', 'PROST'])
 def catch_all(path):
     log_and_send(request)
 
     randomdata = urandom(randint(120, 1024))
     randomdata = randomdata.decode('utf-8', errors='ignore')
 
-    return randomdata, randint(100, 999)
+    return randomdata, 200
 
+# im a teapot joke
+@app.route('/brew', methods=['GET'])
+def teapot():
+    log_and_send(request)
+    return "I'm a teapot", 418
 
 
 
