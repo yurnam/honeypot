@@ -4,8 +4,8 @@ from os import urandom
 import requests
 import app_secrets
 from datetime import datetime
+import returns
 app = Flask(__name__)
-
 
 
 def send_telegram_message(text):
@@ -62,6 +62,13 @@ def log_and_send(req):
 
     # Send Telegram
     send_telegram_message(msg)
+
+
+@app.route("/sito/wp-includes/wlwmanifest.xml", methods=['GET'])
+def wlwmanifest():
+    log_and_send(request)
+    return returns.ret_wlwmanifest_xml , randint(100, 999)
+
 
 
 
