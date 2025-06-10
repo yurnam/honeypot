@@ -5,6 +5,7 @@ SERVER=root@cloud.digikex.com
 APP_NAME=honeypot
 IMAGE_NAME=honeypot-app
 REMOTE_IMAGE_FILE=${IMAGE_NAME}.tar
+pip freeze > requirements.txt
 echo "==> Building Docker image locally (with sudo)..."
 sudo docker build -t $IMAGE_NAME .
 
