@@ -66,6 +66,7 @@ def log_and_send(req):
 
 @app.route("/sito/wp-includes/wlwmanifest.xml", methods=['GET'])
 def wlwmanifest():
+
     log_and_send(request)
     return returns.ret_wlwmanifest_xml , randint(100, 999)
 
@@ -87,4 +88,12 @@ def catch_all(path):
 
 
 if __name__ == '__main__':
+    import threading
+    import ssh_honeypot
+
+    # Start SSH honeypot in background thread
+    ssh_thread = threading.Thread(target=ssh_honeypot.run_ssh_honeypot, daemon=True)
+    ssh_thread.start()
+
+    # Start HTTP honeypot (main thread)
     app.run(host='0.0.0.0', port=80)

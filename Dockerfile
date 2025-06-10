@@ -13,8 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application
 COPY . .
 
-# Expose port 80 (internal to container)
+# Expose port 80 and 22(internal to container)
 EXPOSE 80
+EXPOSE 22
 
 # Run Flask app on port 80
 CMD ["python", "app.py"]
