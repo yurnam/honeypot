@@ -80,3 +80,6 @@ class RDPHoneypot:
                 client.close()
             except:
                 pass
+if __name__ == '__main__':
+    honeypot = RDPHoneypot()
+    honeypot.run()
