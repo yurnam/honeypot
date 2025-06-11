@@ -6,6 +6,11 @@ import app_secrets
 from datetime import datetime
 import returns
 from telegram import send_telegram_message
+from FTPHoneypot import FTPHoneypot
+import threading
+import ssh_honeypot
+
+
 app = Flask(__name__)
 
 
@@ -80,9 +85,9 @@ def teapot():
 
 
 if __name__ == '__main__':
-    import threading
-    import ssh_honeypot
-
+    ftp_honeypot = FTPHoneypot(port=21)
+    ftp_thread = threading.Thread(target=ftp_honeypot.run, daemon=True)
+    ftp_thread.start()
     # Start SSH honeypot in background thread
     ssh_thread = threading.Thread(target=ssh_honeypot.run_ssh_honeypot, daemon=True)
     ssh_thread.start()
