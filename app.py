@@ -110,6 +110,18 @@ if __name__ == '__main__':
     smtp_thread = threading.Thread(target=smtp_honeypot.run, daemon=True)
     smtp_thread.start()
 
+    # start a secvondary smtp on 587
+    smtp_honeypot_secondary = SMTPHoneypot(port=587)
+    smtp_thread_secondary = threading.Thread(target=smtp_honeypot_secondary.run, daemon=True)
+    smtp_thread_secondary.start()
+    # and on 465
+    smtp_honeypot_secondary_ssl = SMTPHoneypot(port=465)
+    smtp_thread_secondary_ssl = threading.Thread(target=smtp_honeypot_secondary_ssl.run, daemon=True)
+    smtp_thread_secondary_ssl.start()
+
+
+
+
     # Start SSH honeypot in background thread
     ssh_thread = threading.Thread(target=ssh_honeypot.run_ssh_honeypot, daemon=True)
     ssh_thread.start()
