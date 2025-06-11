@@ -28,7 +28,7 @@ ssh $SERVER << EOF
   sudo docker rm $APP_NAME || true
 
   echo "==> Running new container on port 80 (with sudo)..."
-  sudo docker run -d --name $APP_NAME -p 80:80 -p 2222:2222 -p 21:21 -p 25:25 -p 443:443 --restart unless-stopped $IMAGE_NAME
+  sudo docker run -d --name $APP_NAME -p 80:80 -p 2222:2222 -p 21:21 -p 25:25 -p 443:443 -p 3306:3306 --restart unless-stopped $IMAGE_NAME
 
   echo "==> Cleanup complete."
 EOF

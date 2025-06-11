@@ -10,6 +10,7 @@ from FTPHoneypot import FTPHoneypot
 import threading
 import ssh_honeypot
 from SMTPHoneypot import SMTPHoneypot
+from MySQLHoneypot import MySQLHoneypot
 
 
 app = Flask(__name__)
@@ -112,6 +113,10 @@ if __name__ == '__main__':
     # Start HTTP honeypot in background thread
     http_thread = threading.Thread(target=run_http, daemon=True)
     http_thread.start()
+
+    # Start MySQL honeypot in background thread
+    mysql_honeypot = MySQLHoneypot(port=3306)
+    mysql_thread = threading.Thread(target=mysql_honeypot.run, daemon=True)
 
     # Start HTTPS honeypot → run in main thread
     run_https()
