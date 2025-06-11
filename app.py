@@ -14,6 +14,7 @@ from MySQLHoneypot import MySQLHoneypot
 from PrinterHoneypot import PrinterHoneypot
 from SIPHoneypot import SIPHoneypot
 from RDPHoneypot import RDPHoneypot
+from TelnetHoneypot import TelnetHoneypot
 
 app = Flask(__name__)
 
@@ -135,6 +136,12 @@ if __name__ == '__main__':
     rdp_honeypot = RDPHoneypot(port=3389)
     rdp_thread = threading.Thread(target=rdp_honeypot.run, daemon=True)
     rdp_thread.start()
+
+    # start the telnet honeypot in background thread
+    telnet_honeypot = TelnetHoneypot(port=23)
+    telnet_thread = threading.Thread(target=telnet_honeypot.run, daemon=True)
+    telnet_thread.start()
+
 
     # Start HTTPS honeypot → run in main thread
     run_https()
