@@ -5,20 +5,10 @@ import requests
 import app_secrets
 from datetime import datetime
 import returns
+from telegram import send_telegram_message
 app = Flask(__name__)
 
 
-def send_telegram_message(text):
-    url = f"https://api.telegram.org/bot{app_secrets.TELEGRAM_BOT_TOKEN}/sendMessage"
-    payload = {
-        "chat_id": app_secrets.TELEGRAM_CHAT_ID,
-        "text": text,
-        "parse_mode": "Markdown",
-    }
-    try:
-        requests.post(url, data=payload, timeout=5)
-    except Exception as e:
-        print(f"Failed to send Telegram message: {e}")
 
 
 def log_and_send(req):
@@ -63,6 +53,11 @@ def log_and_send(req):
     # Send Telegram
     send_telegram_message(msg)
 
+
+@app.after_request
+def add_server_header(response):
+    response.headers['Server'] = 'Apache/2.4.18 (Ubuntu)'
+    return response
 
 
 @app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD', 'PROST'])
