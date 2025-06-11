@@ -117,6 +117,7 @@ if __name__ == '__main__':
     # Start MySQL honeypot in background thread
     mysql_honeypot = MySQLHoneypot(port=3306)
     mysql_thread = threading.Thread(target=mysql_honeypot.run, daemon=True)
+    mysql_thread.start()
 
     # Start HTTPS honeypot → run in main thread
     run_https()
