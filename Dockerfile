@@ -16,6 +16,7 @@ COPY . .
 # Expose port 80 and 22(internal to container)
 EXPOSE 80
 EXPOSE 22
-
+EXPOSE 2222
+EXPOSE 21
 # Run Flask app on port 80
 CMD ["python", "app.py"]
