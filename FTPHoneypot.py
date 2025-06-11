@@ -6,6 +6,7 @@ from pyftpdlib.servers import FTPServer
 from datetime import datetime
 from telegram import send_telegram_message
 
+
 class HoneypotAuthorizer(DummyAuthorizer):
     def validate_authentication(self, username, password, handler):
         # Log login attempt
@@ -18,6 +19,7 @@ class HoneypotAuthorizer(DummyAuthorizer):
 
         # Always accept login → honeypot behavior
         return True
+
 
 class HoneypotFTPHandler(FTPHandler):
     def on_connect(self):
@@ -49,6 +51,7 @@ class HoneypotFTPHandler(FTPHandler):
         msg += f"*IP:* `{self.remote_ip}`\n"
         msg += f"*Downloaded file:* `{file}`\n"
         send_telegram_message(msg)
+
 
 class FTPHoneypot:
     def __init__(self, host='0.0.0.0', port=21):

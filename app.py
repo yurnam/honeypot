@@ -13,12 +13,9 @@ from SMTPHoneypot import SMTPHoneypot
 from MySQLHoneypot import MySQLHoneypot
 from PrinterHoneypot import PrinterHoneypot
 from SIPHoneypot import SIPHoneypot
-
-
+from RDPHoneypot import RDPHoneypot
 
 app = Flask(__name__)
-
-
 
 
 def log_and_send(req):
@@ -80,6 +77,7 @@ def catch_all(path):
 
     return randomdata, 200
 
+
 # im a teapot joke
 @app.route('/brew', methods=['GET'])
 def teapot():
@@ -87,16 +85,17 @@ def teapot():
     return "I'm a teapot", 418
 
 
-
-
 import threading
+
 
 def run_http():
     app.run(host='0.0.0.0', port=80)
 
+
 def run_https():
     context = ('certs/cert.pem', 'certs/key.pem')
     app.run(host='0.0.0.0', port=443, ssl_context=context)
+
 
 if __name__ == '__main__':
     # Start FTP honeypot in background thread
@@ -132,8 +131,10 @@ if __name__ == '__main__':
     sip_thread = threading.Thread(target=sip_honeypot.run, daemon=True)
     sip_thread.start()
 
-
+    # start the RDP honeypot in background thread
+    rdp_honeypot = RDPHoneypot(port=3389)
+    rdp_thread = threading.Thread(target=rdp_honeypot.run, daemon=True)
+    rdp_thread.start()
 
     # Start HTTPS honeypot → run in main thread
     run_https()
-

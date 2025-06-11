@@ -7,17 +7,18 @@ from telegram import send_telegram_message
 
 # MySQL protocol constants (simplified)
 MYSQL_HANDSHAKE = (
-    b"\x0a"                      # Protocol version
-    b"5.5.5-10.1.69-MariaDB\x00" # Server version (fake)
-    b"\x0a\x00\x00\x00"          # Thread ID
-    b"abcdefgh\x00"              # Salt part 1
+    b"\x0a"  # Protocol version
+    b"5.5.5-10.1.69-MariaDB\x00"  # Server version (fake)
+    b"\x0a\x00\x00\x00"  # Thread ID
+    b"abcdefgh\x00"  # Salt part 1
     b"\xff\xf7\x08\x02\x00\x0f\xc0\x15\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"  # Capabilities, charset, status
-    b"ijklmnopqrstuvwx\x00"      # Salt part 2
-    b"\x00"                      # Filler
+    b"ijklmnopqrstuvwx\x00"  # Salt part 2
+    b"\x00"  # Filler
 )
 
 # Simplified fake OK packet
 FAKE_OK_PACKET = b'\x07\x00\x00\x02\x00\x00\x00\x02\x00\x00'
+
 
 class MySQLHoneypot:
     def __init__(self, host='0.0.0.0', port=3306):
@@ -115,6 +116,7 @@ class MySQLHoneypot:
                 client.close()
             except:
                 pass
+
 
 if __name__ == '__main__':
     honeypot = MySQLHoneypot()
