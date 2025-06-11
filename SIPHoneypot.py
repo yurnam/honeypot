@@ -46,7 +46,7 @@ class SIPHoneypot:
             msg += f"*User-Agent:* `{user_agent}`\n"
             msg += f"*Payload:* ```\n{sip_text[:500]}\n```"
 
-            send_telegram_message(msg)
+           # send_telegram_message(msg)
 
             if msg_type == "OPTIONS":
                 # Fake 200 OK for OPTIONS
