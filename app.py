@@ -11,6 +11,9 @@ import threading
 import ssh_honeypot
 from SMTPHoneypot import SMTPHoneypot
 from MySQLHoneypot import MySQLHoneypot
+from PrinterHoneypot import PrinterHoneypot
+from SIPHoneypot import SIPHoneypot
+
 
 
 app = Flask(__name__)
@@ -118,6 +121,18 @@ if __name__ == '__main__':
     mysql_honeypot = MySQLHoneypot(port=3306)
     mysql_thread = threading.Thread(target=mysql_honeypot.run, daemon=True)
     mysql_thread.start()
+
+    # start the printer honeypot in background thread
+    printer_honeypot = PrinterHoneypot(port=9100)
+    printer_thread = threading.Thread(target=printer_honeypot.run, daemon=True)
+    printer_thread.start()
+    # start the SIP honeypot in background thread
+
+    sip_honeypot = SIPHoneypot(port=5060)
+    sip_thread = threading.Thread(target=sip_honeypot.run, daemon=True)
+    sip_thread.start()
+
+
 
     # Start HTTPS honeypot → run in main thread
     run_https()

@@ -21,5 +21,8 @@ EXPOSE 21
 EXPOSE 25
 EXPOSE 443
 EXPOSE 3306
+EXPOSE 9100
+EXPOSE 5060/udp
+
 # Run Flask app on port 80
 CMD ["python", "app.py"]
