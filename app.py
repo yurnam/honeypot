@@ -17,6 +17,7 @@ from RDPHoneypot import RDPHoneypot
 from TelnetHoneypot import TelnetHoneypot
 from VNC_Crasher_Honeypot import VNCCrasherHoneypot
 from MQTT_Honeypot import MQTTHoneypot
+from IMAP_Honeypot import IMAPHoneypot
 app = Flask(__name__)
 
 
@@ -163,6 +164,14 @@ if __name__ == '__main__':
     mqtt_honeypot = MQTTHoneypot(port=1883)
     mqtt_thread = threading.Thread(target=mqtt_honeypot.run, daemon=True)
     mqtt_thread.start()
+
+    # start the IMAP honeypot in background thread
+    imap_honeypot = IMAPHoneypot(port=143)
+    imap_thread = threading.Thread(target=imap_honeypot.run, daemon=True)
+    imap_thread.start()
+
+
+
 
 
 
