@@ -85,16 +85,34 @@ def teapot():
 
 
 
+import threading
+
+def run_http():
+    app.run(host='0.0.0.0', port=80)
+
+def run_https():
+    context = ('certs/cert.pem', 'certs/key.pem')
+    app.run(host='0.0.0.0', port=443, ssl_context=context)
+
 if __name__ == '__main__':
+    # Start FTP honeypot in background thread
     ftp_honeypot = FTPHoneypot(port=21)
     ftp_thread = threading.Thread(target=ftp_honeypot.run, daemon=True)
     ftp_thread.start()
-    smtp_honeypot = SMTPHoneypot(port=25)  # Or test with port=2525
+
+    # Start SMTP honeypot in background thread
+    smtp_honeypot = SMTPHoneypot(port=25)
     smtp_thread = threading.Thread(target=smtp_honeypot.run, daemon=True)
     smtp_thread.start()
+
     # Start SSH honeypot in background thread
     ssh_thread = threading.Thread(target=ssh_honeypot.run_ssh_honeypot, daemon=True)
     ssh_thread.start()
 
-    # Start HTTP honeypot (main thread)
-    app.run(host='0.0.0.0', port=80)
+    # Start HTTP honeypot in background thread
+    http_thread = threading.Thread(target=run_http, daemon=True)
+    http_thread.start()
+
+    # Start HTTPS honeypot → run in main thread
+    run_https()
+
