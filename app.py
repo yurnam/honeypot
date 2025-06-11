@@ -16,7 +16,7 @@ from SIPHoneypot import SIPHoneypot
 from RDPHoneypot import RDPHoneypot
 from TelnetHoneypot import TelnetHoneypot
 from VNC_Crasher_Honeypot import VNCCrasherHoneypot
-
+from MQTT_Honeypot import MQTTHoneypot
 app = Flask(__name__)
 
 
@@ -146,6 +146,12 @@ if __name__ == '__main__':
     vnc_crasher_honeypot = VNCCrasherHoneypot(port=5900)
     vnc_crasher_thread = threading.Thread(target=vnc_crasher_honeypot.run, daemon=True)
     vnc_crasher_thread.start()
+
+    # start the MQTT honeypot in background thread
+    mqtt_honeypot = MQTTHoneypot(port=1883)
+    mqtt_thread = threading.Thread(target=mqtt_honeypot.run, daemon=True)
+    mqtt_thread.start()
+
 
 
     # Start HTTPS honeypot → run in main thread
