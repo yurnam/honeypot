@@ -15,6 +15,7 @@ from PrinterHoneypot import PrinterHoneypot
 from SIPHoneypot import SIPHoneypot
 from RDPHoneypot import RDPHoneypot
 from TelnetHoneypot import TelnetHoneypot
+from VNC_Crasher_Honeypot import VNCCrasherHoneypot
 
 app = Flask(__name__)
 
@@ -141,6 +142,10 @@ if __name__ == '__main__':
     telnet_honeypot = TelnetHoneypot(port=23)
     telnet_thread = threading.Thread(target=telnet_honeypot.run, daemon=True)
     telnet_thread.start()
+    # start the VNC crasher honeypot in background thread
+    vnc_crasher_honeypot = VNCCrasherHoneypot(port=5900)
+    vnc_crasher_thread = threading.Thread(target=vnc_crasher_honeypot.run, daemon=True)
+    vnc_crasher_thread.start()
 
 
     # Start HTTPS honeypot → run in main thread
