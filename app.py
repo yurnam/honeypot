@@ -9,6 +9,7 @@ from telegram import send_telegram_message
 from FTPHoneypot import FTPHoneypot
 import threading
 import ssh_honeypot
+from SMTPHoneypot import SMTPHoneypot
 
 
 app = Flask(__name__)
@@ -88,6 +89,9 @@ if __name__ == '__main__':
     ftp_honeypot = FTPHoneypot(port=21)
     ftp_thread = threading.Thread(target=ftp_honeypot.run, daemon=True)
     ftp_thread.start()
+    smtp_honeypot = SMTPHoneypot(port=25)  # Or test with port=2525
+    smtp_thread = threading.Thread(target=smtp_honeypot.run, daemon=True)
+    smtp_thread.start()
     # Start SSH honeypot in background thread
     ssh_thread = threading.Thread(target=ssh_honeypot.run_ssh_honeypot, daemon=True)
     ssh_thread.start()
