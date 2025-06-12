@@ -15,7 +15,7 @@ class HoneypotAuthorizer(DummyAuthorizer):
         msg += f"*IP:* `{handler.remote_ip}`\n"
         msg += f"*Username:* `{username}`\n"
         msg += f"*Password:* `{password}`\n"
-        send_telegram_message(msg)
+        #send_telegram_message(msg)
 
         # Always accept login → honeypot behavior
         return True
