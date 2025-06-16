@@ -78,7 +78,7 @@ class VNCCrasherHoneypot:
                 frame_height.to_bytes(2, 'big') +
                 pixel_format +
                 b'\x00\x00\x00\x0a' +  # name length 10
-                b'LooseVNC  '  # exactly 10 bytes → match length
+                b'GooseVNC  '  # this VNC Server has the mentality of a goose. 🦢
             )
 
             client.sendall(serverinit)
@@ -125,6 +125,7 @@ class VNCCrasherHoneypot:
                         rectangle += os.urandom(w * h * 4)  # 32bpp random pixel data
 
                         client.sendall(b'\x00' + b'\x00' + header + rectangle)
+                        print("[VNC] Sent FramebufferUpdate with random pixels")
 
                         # Optional delay → looks realistic
                         time.sleep(0.05)

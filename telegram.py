@@ -1,7 +1,6 @@
 import requests
 import app_secrets
 def send_telegram_message(text):
-    return
     url = f"https://api.telegram.org/bot{app_secrets.TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {
         "chat_id": app_secrets.TELEGRAM_CHAT_ID,
