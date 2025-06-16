@@ -1,6 +1,7 @@
 # SMTPHoneypot.py
 
 import asyncio
+import time
 from aiosmtpd.controller import Controller
 from aiosmtpd.handlers import AsyncMessage
 from telegram import send_telegram_message
@@ -39,7 +40,7 @@ class SMTPHoneypot:
         # Keep running
         try:
             while True:
-                asyncio.sleep(1)
+                time.sleep(1)
         except KeyboardInterrupt:
             print("[SMTPHoneypot] Stopping...")
             controller.stop()
